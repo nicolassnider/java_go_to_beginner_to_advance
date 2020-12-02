@@ -1,0 +1,179 @@
+Article No 1
+ Variables
+As you see from the programs in the preceding sections, variables are used to store values to be used later in a program. They are called variables because their values can be changed. 
+
+To create a variable, you must give it a name and identify what type of information it will store. You also can give a variable an initial value at the same time you create it.
+
+Creating Variables
+
+Before you can use a variable in a Java program, you must create the variable by declaring its name and the type of information it will store. The type of information is listed first, followed by the name of the variable. The following are all examples of variable declarations:
+
+int Length;
+String message;
+boolean game;
+NOTE
+
+You learn about variable types later , but you might be familiar with the types used in this example. The int type represents integers, boolean is used for true/false values, and String is a special variable type used to store text.
+// Compute the first area 
+radius = 1.0; area = radius * radius * 3.14159;
+ System.out.println("The area is " + area + " for radius " + radius);
+ // Compute the second area 
+radius = 2.0;
+ area = radius * radius * 3.14159;
+ System.out.println("The area is " + area + " for radius " + radius);
+In the program, radius and area are variables of double-precision, floating point type. You can assign any numerical value to radius and area, and the values of radius and area can be reassigned. For example, you can write the code shown below to compute the area for different radii:Variables are for representing data of a certain type. To use a variable, you declare it by telling the compiler its name as well as what type of data it can store. The variable declaration tells the compiler to allocate appropriate memory space for the variable based on its data type. The syntax for declaring a variable is
+
+datatype variable Name;
+
+Here are some examples of variable declarations:
+
+int count; 
+// Declare count to be an integer variable;
+ double radius;
+ // Declare radius to be a double variable;
+ double interestRate;
+ // Declare interestRate to be a double variable;
+The examples use the data types int, double, and char. Later you will be introduced to additional data types, such as byte, short, long, float, char, and boolean. If variables are of the same type, they can be declared together, as follows:
+
+datatype variable1, variable2, ..., variablen; 
+
+There are three kinds of variables in Java: instance variables, class variables, and local variables.
+
+Instance variables, as you learned yesterday, are used to define an object's attributes.
+
+ Class variables define the attributes of an entire class of objects, and apply to all instances of it.
+
+Local variables are used inside method definitions, or even smaller blocks of statements within a method. They can be used only while the method or block is being executed by the Java interpreter, and they cease to exist afterward.
+
+Local variables can be declared at any place inside a method, just like any other Java statement, but they must be declared before they can be used. The normal place for variable declarations is immediately after the statement that names and identifies the method.
+
+In the following example, three variables are declared at the top of a program's main() method:
+
+public static void main(String[ ] arguments ) {
+  int total;
+  String Title;
+  boolean active;
+}
+If you are creating several variables of the same type, you can declare all of them in the same statement by separating the variable names with commas. The following statement creates three String variables named street, city, and state:
+
+String street, city, state;
+Variables can be assigned a value when they are created by using an equal sign (=) followed by the value. The following statements create new variables and give them initial values:
+
+int zipCode = 02134;
+int box = 350;
+boolean pbs = true;
+String name = "Zoom", city = "Boston", state = "MA";
+Naming Variables
+
+Variable names in Java must start with a letter, an underscore character (_), or a dollar sign ($). They cannot start with a number. After the first character, variable names can include any combination of letters or numbers.
+
+NOTE
+
+In addition, the Java language uses the Unicode character set, which includes the standard character set plus thousands of others to represent international alphabets. Accented characters and other symbols can be used in variable names as long as they have a Unicode character number.
+When naming a variable and using it in a program, it's important to remember that Java is case sensitive—the capitalization of letters must be consistent. Because of this, a program can have a variable named X and another named x—and a rose is not a Rose is not a ROSE.
+
+In programs in this book and elsewhere, Java variables are given meaningful names that include several words joined together. To make it easier to spot the words, the following rule of thumb is used:
+
+The first letter of the variable name is lowercase.
+
+Each successive word in the variable name begins with a capital letter.
+
+All other letters are lowercase.
+
+The following variable declarations follow this rule of naming:
+
+Button loadFile;
+int areaCode;
+boolean quitGame;
+Data Types
+There are eight basic variable types for the storage of integers, floating-point numbers, characters, and Boolean values. These often are called primitive types because they are built-in parts of the Java language rather than being objects, which makes them more efficient to use. These data types have the same size and characteristics no matter what operating system and platform you're on, unlike some data types in other programming languages.
+
+There are four data types that can be used to store integers. The one to use depends on the size of the integer
+
+Type
+
+Size
+
+Values That Can Be Stored
+
+byte
+
+8 bits
+
+–128 to 127
+
+short
+
+16 bits
+
+–32,768 to 32,767
+
+int
+
+32 bits
+
+–2,147,483,648 to 2,147,483,647
+
+long
+
+64 bits
+
+–9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+
+All these types are signed, which means that they can hold either positive or negative numbers. The type used for a variable depends on the range of values it might need to hold. None of these integer variables can reliably store a value that is too large or too small for its designated variable type, so you should take care when designating the type.
+
+
+Primitive Data Types
+
+The Java programming language is statically-typed, which means that all variables must first be declared before they can be used. This involves stating the variable's type and name, as you've already seen:
+
+int gear = 1;
+Doing so tells your program that a field named "gear" exists, holds numerical data, and has an initial value of "1". A variable's data type determines the values it may contain, plus the operations that may be performed on it. In addition to int, the Java programming language supports seven other primitive data types. A primitive type is predefined by the language and is named by a reserved keyword. Primitive values do not share state with other primitive values. The eight primitive data types supported by the Java programming language are:
+
+byte: The byte data type is an 8-bit signed two's complement integer. It has a minimum value of -128 and a maximum value of 127 (inclusive). The byte data type can be useful for saving memory in large arrays, where the memory savings actually matters. They can also be used in place of int where their limits help to clarify your code; the fact that a variable's range is limited can serve as a form of documentation.
+
+short: The short data type is a 16-bit signed two's complement integer. It has a minimum value of -32,768 and a maximum value of 32,767 (inclusive). As with byte, the same guidelines apply: you can use a short to save memory in large arrays, in situations where the memory savings actually matters.
+
+int: By default, the int data type is a 32-bit signed two's complement integer, which has a minimum value of -231 and a maximum value of 231-1. In Java SE 8 and later, you can use the int data type to represent an unsigned 32-bit integer, which has a minimum value of 0 and a maximum value of 232-1. Use the Integer class to use int data type as an unsigned integer. See the section The Number Classes for more information. Static methods like compareUnsigned, divideUnsigned etc have been added to the Integer class to support the arithmetic operations for unsigned integers.
+
+long: The long data type is a 64-bit two's complement integer. The signed long has a minimum value of -263 and a maximum value of 263-1. In Java SE 8 and later, you can use the longdata type to represent an unsigned 64-bit long, which has a minimum value of 0 and a maximum value of 264-1. Use this data type when you need a range of values wider than those provided by int. The Long class also contains methods like compareUnsigned, divideUnsigned etc to support arithmetic operations for unsigned long.
+
+float: The float data type is a single-precision 32-bit IEEE 754 floating point. Its range of values is beyond the scope of this discussion, but is specified in the Floating-Point Types, Formats, and Values section of the Java Language Specification. As with the recommendations for byte and short, use a float (instead of double) if you need to save memory in large arrays of floating point numbers. This data type should never be used for precise values, such as currency. For that, you will need to use the java.math.BigDecimal class instead.Numbers and Strings covers BigDecimal and other useful classes provided by the Java platform.
+
+double: The double data type is a double-precision 64-bit IEEE 754 floating point. Its range of values is beyond the scope of this discussion, but is specified in the Floating-Point Types, Formats, and Values section of the Java Language Specification. For decimal values, this data type is generally the default choice. As mentioned above, this data type should never be used for precise values, such as currency.
+
+boolean: The boolean data type has only two possible values: true and false. Use this data type for simple flags that track true/false conditions. This data type represents one bit of information, but its "size" isn't something that's precisely defined.
+
+char: The char data type is a single 16-bit Unicode character. It has a minimum value of '\u0000' (or 0) and a maximum value of '\uffff' (or 65,535 inclusive).
+
+The following examples demonstrate valid and invalid underscore placements (which are highlighted) in numeric literals:
+
+// Invalid: cannot put underscores
+// adjacent to a decimal point
+float pi1 = 3_.1415F;
+// Invalid: cannot put underscores 
+// adjacent to a decimal point
+float pi2 = 3._1415F;
+// Invalid: cannot put underscores 
+// prior to an L suffix
+long socialSecurityNumber1 = 999_99_9999_L;
+ 
+// OK (decimal literal)
+int x1 = 5_2;
+// Invalid: cannot put underscores
+// At the end of a literal
+int x2 = 52_;
+// OK (decimal literal)
+int x3 = 5_______2;
+ 
+// Invalid: cannot put underscores
+// in the 0x radix prefix
+int x4 = 0_x52;
+// Invalid: cannot put underscores
+// at the beginning of a number
+int x5 = 0x_52;
+// OK (hexadecimal literal)
+int x6 = 0x5_2; 
+// Invalid: cannot put underscores
+// at the end of a number
+int x7 = 0x52_;
