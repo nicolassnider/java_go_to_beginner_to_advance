@@ -1,0 +1,252 @@
+Article No 5
+                                                              Java - Methods
+A Java method is a collection of statements that are grouped together to perform an operation. When you call the System.out.println() method, for example, the system actually executes several statements in order to display a message on the console.
+
+Now you will learn how to create your own methods with or without return values, invoke a method with or without parameters, and apply method abstraction in the program design.
+
+Creating Method
+
+Here is an example of a typical method declaration:
+
+public double calculateAnswer(double wingSpan, int numberOfEngines,
+                              double length, double grossTons) {
+    //do the calculation here
+}
+The only required elements of a method declaration are the method's return type, name, a pair of parentheses, (), and a body between braces, {}.
+
+More generally, method declarations have six components, in order:
+
+Modifiers—such as public, private, and others you will learn about later.
+The return type—the data type of the value returned by the method, or void if the method does not return a value.
+The method name—the rules for field names apply to method names as well, but the convention is a little different.
+The parameter list in parenthesis—a comma-delimited list of input parameters, preceded by their data types, enclosed by parentheses, (). If there are no parameters, you must use empty parentheses.
+An exception list—to be discussed later.
+The method body, enclosed between braces—the method's code, including the declaration of local variables, goes here.
+Example
+
+Here is the source code of the above defined method called min(). This method takes two parameters num1 and num2 and returns the maximum between the two −
+
+/** the snippet returns the minimum between two numbers */
+ 
+public static int minFunction(int n1, int n2) {
+   int min;
+   if (n1 > n2)
+      min = n2;
+   else
+      min = n1;
+ 
+   return min; 
+}
+Method Calling
+
+For using a method, it should be called. There are two ways in which a method is called i.e., method returns a value or returning nothing (no return value).
+
+The process of method calling is simple. When a program invokes a method, the program control gets transferred to the called method. This called method then returns control to the caller in two conditions, when −
+
+the return statement is executed.
+it reaches the method ending closing brace.
+The methods returning void is considered as call to a statement. Lets consider an example −
+
+System.out.println("This is tutorialspoint.com!");
+The method returning value can be understood by the following example −
+
+int result = sum(6, 9);
+Following is the example to demonstrate how to define a method and how to call it −
+
+public class ExampleMinNumber {
+   
+   public static void main(String[] args) {
+      int a = 11;
+      int b = 6;
+      int c = minFunction(a, b);
+      System.out.println("Minimum Value = " + c);
+   }
+ 
+   /** returns the minimum of two numbers */
+   public static int minFunction(int n1, int n2) {
+      int min;
+      if (n1 > n2)
+         min = n2;
+      else
+         min = n1;
+ 
+      return min; 
+   }
+}
+Naming a Method
+Although a method name can be any legal identifier, code conventions restrict method names. By convention, method names should be a verb in lowercase or a multi-word name that begins with a verb in lowercase, followed by adjectives, nouns, etc. In multi-word names, the first letter of each of the second and following words should be capitalized. Here are some examples:
+
+run runFast getBackground getFinalData compareTo setX isEmpty
+
+Typically, a method has a unique name within its class. However, a method might have the same name as other methods due to method overloading.
+
+Overloading Methods
+
+The Java programming language supports overloading methods, and Java can distinguish between methods with different method signatures. This means that methods within a class can have the same name if they have different parameter lists (there are some qualifications to this that will be discussed in the lesson titled "Interfaces and Inheritance").
+
+Suppose that you have a class that can use calligraphy to draw various types of data (strings, integers, and so on) and that contains a method for drawing each data type. It is cumbersome to use a new name for each method—for example, drawString, drawInteger, drawFloat, and so on. In the Java programming language, you can use the same name for all the drawing methods but pass a different argument list to each method. Thus, the data drawing class might declare four methods named draw, each of which has a different parameter list.
+
+public class DataArtist {
+    ...
+    public void draw(String s) {
+        ...
+    }
+    public void draw(int i) {
+        ...
+    }
+    public void draw(double f) {
+        ...
+    }
+    public void draw(int i, double f) {
+        ...
+    }
+}
+Overloaded methods are differentiated by the number and the type of the arguments passed into the method. In the code sample, draw(String s) and draw(int i) are distinct and unique methods because they require different argument types.
+
+You cannot declare more than one method with the same name and the same number and type of arguments, because the compiler cannot tell them apart.
+
+The compiler does not consider return type when differentiating methods, so you cannot declare two methods with the same signature even if they have a different return type.
+
+Note: Overloaded methods should be used sparingly, as they can make code much less readable.
+
+
+
+                                                   Regular expression in java
+
+The Java Regex or Regular Expression is an API to define pattern for searching or manipulating strings.
+
+It is widely used to define constraint on strings such as password and email validation. After learning java regex tutorial, you will be able to test your own regular expressions by the Java Regex Tester Tool.
+
+Java Regex API provides 1 interface and 3 classes in java.util.regex package.
+
+java.util.regex package
+It provides following classes and interface for regular expressions. The Matcher and Pattern classes are widely used in java regular expression.
+
+MatchResult interface
+Matcher class
+Pattern class
+PatternSyntaxException class
+                                                                                            Expression
+
+
+
+Examples of Expressions. Here are some examples of various types of expressions. Expressions that produce a value use a wide range of Java arithmetic, comparison or conditional operators. For example, arithmetic operators include +, *, /, <, >, ++ and %.
+
+Expressions, Statements, and Blocks
+
+Now that you understand variables and operators, it's time to learn about expressions, statements, and blocks. Operators may be used in building expressions, which compute values; expressions are the core components of statements; statements may be grouped into blocks.
+
+Expressions
+
+An expression is a construct made up of variables, operators, and method invocations, which are constructed according to the syntax of the language, that evaluates to a single value. You've already seen examples of expressions, illustrated in bold below:
+
+int cadence = 0;
+
+anArray[0] = 100;
+
+System.out.println("Element 1 at index 0: " + anArray[0]);
+
+int result = 1 + 2; // result is now 3
+
+if (value1 == value2)
+
+    System.out.println("value1 == value2");
+
+The data type of the value returned by an expression depends on the elements used in the expression. The expression cadence = 0 returns an int because the assignment operator returns a value of the same data type as its left-hand operand; in this case, cadence is an int. As you can see from the other expressions, an expression can return other types of values as well, such as boolean or String.
+
+The Java programming language allows you to construct compound expressions from various smaller expressions as long as the data type required by one part of the expression matches the data type of the other. Here's an example of a compound expression:
+
+ 
+
+1 * 2 * 3
+
+In this particular example, the order in which the expression is evaluated is unimportant because the result of multiplication is independent of order; the outcome is always the same, no matter in which order you apply the multiplications. However, this is not true of all expressions. For example, the following expression gives different results, depending on whether you perform the addition or the division operation first:
+
+x + y / 100    // ambiguous
+
+You can specify exactly how an expression will be evaluated using balanced parenthesis: ( and ). For example, to make the previous expression unambiguous, you could write the following:
+
+ 
+
+(x + y) / 100  // unambiguous, recommended
+
+If you don't explicitly indicate the order for the operations to be performed, the order is determined by the precedence assigned to the operators in use within the expression. Operators that have a higher precedence get evaluated first. For example, the division operator has a higher precedence than does the addition operator. Therefore, the following two statements are equivalent:
+
+x + y / 100
+
+x + (y / 100) // unambiguous, recommended
+
+When writing compound expressions, be explicit and indicate with parentheses which operators should be evaluated first. This practice makes code easier to read and to maintain.
+
+Statements
+
+Statements are roughly equivalent to sentences in natural languages. A statement forms a complete unit of execution. The following types of expressions can be made into a statement by terminating the expression with a semicolon (;).
+
+Assignment expressions
+Any use of ++ or --
+Method invocations
+Object creation expressions
+Such statements are called expression statements. Here are some examples of expression statements.
+
+// assignment statement
+ 
+  
+aValue = 8933.234;
+ 
+  
+// increment statement
+ 
+  
+aValue++;
+ 
+  
+// method invocation statement
+ 
+  
+System.out.println("Hello World!");
+ 
+  
+// object creation statement
+ 
+  
+Bicycle myBike = new Bicycle();
+In addition to expression statements, there are two other kinds of statements: declaration statements and control flow statements. A declaration statement declares a variable. You've seen many examples of declaration statements already:
+
+// declaration statement
+ 
+  
+double aValue = 8933.234;
+Finally, control flow statements regulate the order in which statements get executed. You'll learn about control flow statements in the next section, Control Flow Statements
+
+Blocks
+
+block is a group of zero or more statements between balanced braces and can be used anywhere a single statement is allowed. The following example,
+
+class BlockDemo {
+ 
+  
+     public static void main(String[] args) {
+ 
+  
+          boolean condition = true;
+ 
+  
+          if (condition) { // begin block 1  
+               System.out.println("Condition is true.");
+ 
+  
+          } // end block one  
+          else { // begin block 2  
+               System.out.println("Condition is false.");
+ 
+  
+          } // end block 2  
+     }
+ 
+  
+}
+
+
+
+
+Increment (++) and decrement (—) operators in Java programming let you easily add 1 to, or subtract 1 from, a variable. For example, using increment operators, you can add 1 to a variable named a like this: a++; An expression that uses anincrement or decrement operator is a statement itself.

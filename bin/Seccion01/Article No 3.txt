@@ -1,0 +1,497 @@
+Article No 3
+                                                                  Controlling Statement
+Like a sentient creature, a program must manipulate its world and make choices during execution. In Java you make choices with execution control statements.
+
+Java uses all of C’s execution control statements, so if you’ve programmed with C or C++, then most of what you see will be familiar. Most procedural programming languages have some kind of control statements, and there is often overlap among languages. In Java, the keywords include if-else, while, do-while, for, return, break, and a selection statement called switch. Java does not, however, support the much-maligned goto (which can still be the most expedient way to solve certain types of problems). You can still do a goto-like jump, but it is much more constrained than a typical goto.
+
+True and false
+
+All conditional statements use the truth or falsehood of a conditional expression to determine the execution path. An example of a conditional expression is a == b. This uses the conditional operator == to see if the value of a is equivalent to the value of b. The expression returns true or false. Any of the relational operators you’ve seen in the previous chapter can be used to produce a conditional statement. Note that Java doesn’t allow you to use a number as a boolean, even though it’s allowed in C and C++ (where truth is nonzero and falsehood is zero). If you want to use a non-boolean in a boolean test, such as if(a), you must first convert it to a boolean value by using a conditional expression, such as if(a != 0). 
+
+
+
+If Statement
+
+if ( test-expression ) { // if true do this; } “if statement” executes codes inside { … } only if a specified condition is true, does not execute any codes inside {…} if the condition is false.
+
+Example    1
+ public    class    TryClass{ 
+public static void main (String[]args){
+ int a=200;
+int b=100; 
+if(a>b)
+    { //if true,run the next command 
+System.out.print ("a is greaterthan b."); }}} 
+(Output:a is greater than b.)
+ 
+Explanation: ( a>b ) is a test expression, namely (200>100),
+ if returns true, it will execute the codes inside the { },
+ if returns false, it will not execute the codes inside the { }.
+The if-else statement is the most basic way to control program flow. The else is optional, so you can use if in two forms:  
+
+if(Boolean-expression)    statement  
+or  
+if(Boolean-expression)    statement  else    statement 
+The Boolean-expression must produce a boolean result. The statement is either a simple statement terminated by a semicolon, or a compound statement, which is a group of simple statements enclosed in braces. Whenever the word “statement” is used, it always implies that the statement can be simple or compound.  
+As an example of if-else, here is a test( ) method that will tell you whether a guess is above, below, or equivalent to a target number:  
+
+//: control/IfElse.java  import static net.mindview.util.Print.*;  
+ 
+public class IfElse {  
+ 
+static int result = 0;
+static void test(int testval, int target) {
+if(testval > target)
+result = +1;
+else if(testval < target)        
+result = -1;      
+else        
+result = 0; 
+// Match    }    
+public static void main(String[] args) 
+{test(10, 5);      
+print(result);      
+test(5, 10);      
+print(result);      
+test(5, 5);      
+print(result);    
+}
+} 
+/* Output:  1  -1  0  *///:~  
+Iteration  
+Looping is controlled by while, do-while and for, which are sometimes classified as iteration statements. A statement repeats until the controlling Boolean-expression evaluates to false. The form for a while loop is:  
+while(Boolean-expression) statement  
+
+The Boolean-expression is evaluated once at the beginning of the loop and again before each further iteration of the statement.  
+Here’s a simple example that generates random numbers until a particular condition is met: 
+
+//: control/WhileTest.java // Demonstrates the while loop. 
+ 
+public class WhileTest {   
+static boolean condition() {     
+boolean result = Math.random() < 0.99;     
+System.out.print(result + ", ");     
+return result;   }   
+public static void main(String[] args) {     
+while(condition())       
+System.out.println("Inside ‘while’");     
+System.out.println("Exited ‘while’");   
+} } /* 
+(Execute to see output) *///:~ 
+
+
+Cascading if statements
+Here’s a riddle: You have two baseball teams — the Hankees and the Socks.
+You want to display the teams’ scores on two separate lines, with the winner’s
+score coming first. (On the computer screen, the winner’s score is displayed
+above the loser’s score.) What happens when the scores are tied?
+
+import java.util.Scanner;
+import static java.lang.System.out;
+class WinLoseOrTie {
+public static void main(String args[]) {
+Scanner myScanner = new Scanner(System.in);
+int hankees, socks;
+out.print(“Hankees and Socks scores? “);
+hankees = myScanner.nextInt();
+socks = myScanner.nextInt();
+out.println();
+if (hankees > socks) {
+out.println(“Hankees win...”);
+out.print(“Hankees: “);
+out.println(hankees);
+out.print(“Socks: “);
+out.println(socks);
+} else if (socks > hankees) {
+out.println(“Socks win...”);
+out.print(“Socks: “);
+out.println(socks);
+out.print(“Hankees: “);
+out.println(hankees);
+ 
+}
+ else {
+out.println("It's a tie...");
+out.print("Hankees: ");
+out.println(hankees);
+out.print("Socks: ");
+out.println(socks);
+}
+}
+}
+illustrates a way of thinking about a problem. You have one question with more than two answers. (In this section’s baseball problem, the question is “Who wins?” and the answers are “Hankees,” “Socks,” or “Neither.”)
+The problem begs for an if statement, but an if statement has only two branches — the true branch and the false branch. So you combine alternatives to form cascading if statements.
+
+the format for the cascading if statements is
+
+if (Condition1) {
+SomeStatements
+} else if (Condition2) {
+OtherStatements
+} else {
+EvenMoreStatements
+}
+In general, you can use else if as many times as you want:
+
+if (hankeesWin) {
+out.println(“Hankees win...”);
+out.print(“Hankees: “);
+out.println(hankees);
+out.print(“Socks: “);
+out.println(socks);
+} else if (socksWin) {
+out.println(“Socks win...”);
+out.print(“Socks: “);
+out.println(socks);
+out.print(“Hankees: “);
+out.println(hankees);
+} else if (isATie) {
+out.println(“It’s a tie...”);
+out.print(“Hankees: “);
+out.println(hankees);
+out.print(“Socks: “);
+out.println(socks);
+} else if (gameCancelled) {
+out.println(“Sorry, sports fans.”);
+} else {
+out.println(“The game isn’t over yet.”);
+}
+Nothing is special about cascading if statements. This isn’t a new programming language feature. Cascading if statements take advantage of a loophole in Java — a loophole about omitting curly braces in certain circumstances.
+Other than that, cascading if statements just gives you a new way to think about decisions within your code.
+
+Enumerating the Possibilities
+ Java’s boolean type — the type with only two values (true and false). The boolean type is very handy, but sometimes you need
+more values. After all, a traffic light’s values can be green, yellow, or red. A playing card’s suit can be spade, club, heart, or diamond. And a weekday can be Monday, Tuesday, Wednesday, Thursday, or Friday. Life is filled with small sets of possibilities, and Java has a feature that can reflect these possibilities.
+
+Creating an enum type:
+
+
+Three Possibilities
+enum WhoWins {home, visitor, neither} 
+
+This week’s game is played at Hankeeville’s SnitSoft Stadium, so the value home represents a win for the Hankees, and the value visitor represents a win for the Socks.
+I wonder what thoughts you have on your first encounter . “What good is a one-line program?” you ask. “Three values? Who cares?” you say. “Does this code do anything useful?” you think. “Does the code do anything at all?” One of the goals in computer programming is for each program’s structure to mirror whatever problem the program solves. When a program reminds you of its underlying problem, the program is easy to understand, and inexpensive to maintain. For instance, a program to tabulate customer accounts should use names like customer and account. And a program that deals with three possible outcomes (home wins, visitor wins, and tie) should have a variable with three possible values. I create a type to store three values.
+
+The WhoWins type defined  is called an enum type. Think of the new WhoWins type as a boolean on steroids. Instead of two values (true and false) the WhoWins type has three values (home, visitor, and neither).
+You can create a variable of type WhoWins
+
+
+
+i
+
+mport java.util.Scanner;
+import static java.lang.System.out;
+class Scoreboard {
+public static void main(String args[]) {
+Scanner myScanner = new Scanner(System.in);
+int hankees, socks;
+WhoWins who;
+out.print(“Hankees and Socks scores? “);
+hankees = myScanner.nextInt();
+socks = myScanner.nextInt();
+out.println();
+if (hankees > socks) {
+who = WhoWins.home;
+out.println(“The Hankees win :-)”);
+} else if (socks > hankees) {
+who = WhoWins.visitor;
+out.println(“The Socks win :-(“);
+} else {
+who = WhoWins.neither;
+out.println(“It’s a tie :-|”);
+}
+out.println();
+out.println(“Today’s game is brought to you by”);
+out.println(“SnitSoft, the number one software”);
+out.println(“vendor in the Hankeeville area.”);
+out.println(“SnitSoft is featured proudly in”);
+out.println(“Chapter 6. And remember, four out”);
+out.println(“of five doctors recommend SnitSoft”);
+out.println(“to their patients.”);
+out.println();
+if (who == WhoWins.home) {
+out.println(“We beat ‘em good. Didn’t we?”);
+}
+if (who == WhoWins.visitor) {
+out.println(“The umpire made an unfair call.”);
+}
+if (who == WhoWins.neither) {
+out.println(“The game goes into overtime.”);
+}
+}
+}
+
+
+Switch Statement 
+
+Unlike if-then and if-then-else statements, the switch statement can have a number of possible execution paths. A switch works with the byte, short, char, and int primitive data types. It also works with enumerated types (discussed in Enum Types), the String class, and a few special classes that wrap certain primitive types: Character, Byte, Short, and Integer(discussed in Numbers and Strings).
+
+The following code example, SwitchDemo, declares an int named month whose value represents a month. The code displays the name of the month, based on the value of month, using the switch statement.
+
+public class SwitchDemo {
+    public static void main(String[] args) {
+ 
+        int month = 8;
+        String monthString;
+        switch (month) {
+            case 1:  monthString = "January";
+                     break;
+            case 2:  monthString = "February";
+                     break;
+            case 3:  monthString = "March";
+                     break;
+            case 4:  monthString = "April";
+                     break;
+            case 5:  monthString = "May";
+                     break;
+            case 6:  monthString = "June";
+                     break;
+            case 7:  monthString = "July";
+                     break;
+            case 8:  monthString = "August";
+                     break;
+            case 9:  monthString = "September";
+                     break;
+            case 10: monthString = "October";
+                     break;
+            case 11: monthString = "November";
+                     break;
+            case 12: monthString = "December";
+                     break;
+            default: monthString = "Invalid month";
+                     break;
+        }
+        System.out.println(monthString);
+    }
+}
+In this case, August is printed to standard output.
+
+The body of a switch statement is known as a switch block. A statement in the switch block can be labeled with one or more case or default labels. The switch statement evaluates its expression, then executes all statements that follow the matching case label.
+
+You could also display the name of the month with if-then-else statements:
+
+int month = 8;
+if (month == 1) {
+    System.out.println("January");
+} else if (month == 2) {
+    System.out.println("February");
+}
+...  // and so on
+Deciding whether to use if-then-else statements or a switch statement is based on readability and the expression that the statement is testing. An if-then-else statement can test expressions based on ranges of values or conditions, whereas a switch statement tests expressions based only on a single integer, enumerated value, or String object.
+
+###pbreak statement. Each <code>break statement terminates the enclosing switch statement. Control flow continues with the first statement following the switch block. The break statements are necessary because without them, statements in switch blocks fall through: All statements after the matching case label are executed in sequence, regardless of the expression of subsequent case labels, until a break statement is encountered. The program ###a class="SourceLink" target="_blank" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/examples/SwitchDemoFallThrough.java">SwitchDemoFallThrough shows statements in a switch block that fall through. The program displays the month corresponding to the integer month and the months that follow in the year:
+
+public class SwitchDemoFallThrough {
+ 
+    public static void main(String[] args) {
+        java.util.ArrayList<String> futureMonths =
+            new java.util.ArrayList<String>();
+ 
+        int month = 8;
+ 
+        switch (month) {
+            case 1:  futureMonths.add("January");
+            case 2:  futureMonths.add("February");
+            case 3:  futureMonths.add("March");
+            case 4:  futureMonths.add("April");
+            case 5:  futureMonths.add("May");
+            case 6:  futureMonths.add("June");
+            case 7:  futureMonths.add("July");
+            case 8:  futureMonths.add("August");
+            case 9:  futureMonths.add("September");
+            case 10: futureMonths.add("October");
+            case 11: futureMonths.add("November");
+            case 12: futureMonths.add("December");
+                     break;
+            default: break;
+        }
+ 
+        if (futureMonths.isEmpty()) {
+            System.out.println("Invalid month number");
+        } else {
+            for (String monthName : futureMonths) {
+               System.out.println(monthName);
+            }
+        }
+    }
+}
+This is the output from the code:
+
+
+
+August
+September
+October
+November
+December
+
+
+Strings
+
+Strings, which are widely used in Java programming, are a sequence of characters. In the Java programming language, strings are objects. TheJava platform provides the String class to create and manipulate strings.
+
+Creating Strings
+
+The most direct way to create a string is to write:
+
+String greeting = "Hello world!";
+In this case, "Hello world!" is a string literal—a series of characters in your code that is enclosed in double quotes. Whenever it encounters a string literal in your code, the compiler creates a String object with its value—in this case, Hello world!.
+
+As with any other object, you can create String objects by using the new keyword and a constructor. The String class has thirteen constructors that allow you to provide the initial value of the string using different sources, such as an array of characters:
+
+char[] helloArray = { 'h', 'e', 'l', 'l', 'o', '.' };
+String helloString = new String(helloArray);
+System.out.println(helloString);
+The last line of this code snippet displays hello.
+
+Note: The String class is immutable, so that once it is created a String object cannot be changed. The String class has a number of methods, some of which will be discussed below, that appear to modify strings. Since strings are immutable, what these methods really do is create and return a new string that contains the result of the operation.
+
+String Length
+
+Methods used to obtain information about an object are known as accessor methods. One accessor method that you can use with strings is the length() method, which returns the number of characters contained in the string object. After the following two lines of code have been executed, len equals 17:
+
+String palindrome = "Dot saw I was Tod";
+int len = palindrome.length();
+A palindrome is a word or sentence that is symmetric—it is spelled the same forward and backward, ignoring case and punctuation. Here is a short and inefficient program to reverse a palindrome string. It invokes the String method charAt(i), which returns the i###sup/sup### character in the string, counting from 0.
+
+public class StringDemo {
+    public static void main(String[] args) {
+        String palindrome = "Dot saw I was Tod";
+        int len = palindrome.length();
+        char[] tempCharArray = new char[len];
+        char[] charArray = new char[len];
+        
+        // put original string in an 
+        // array of chars
+        for (int i = 0; i < len; i++) {
+            tempCharArray[i] = 
+                palindrome.charAt(i);
+        } 
+        
+        // reverse array of chars
+        for (int j = 0; j < len; j++) {
+            charArray[j] =
+                tempCharArray[len - 1 - j];
+        }
+        
+        String reversePalindrome =
+            new String(charArray);
+        System.out.println(reversePalindrome);
+    }
+}
+Running the program produces this output:
+
+doT saw I was toD
+To accomplish the string reversal, the program had to convert the string to an array of characters (first for loop), reverse the array into a second array (second for loop), and then convert back to a string. The String class includes a method, getChars(), to convert a string, or a portion of a string, into an array of characters so we could replace the first for loop in the program above with
+
+palindrome.getChars(0, len, tempCharArray, 0);
+Concatenating Strings
+
+The String class includes a method for concatenating two strings:
+
+string1.concat(string2); 
+This returns a new string that is string1 with string2 added to it at the end.
+
+You can also use the concat() method with string literals, as in:
+
+"My name is ".concat("Rumplestiltskin");
+Strings are more commonly concatenated with the + operator, as in
+
+"Hello," + " world" + "!"
+which results in
+
+"Hello, world!"
+The + operator is widely used in print statements. For example:
+
+String string1 = "saw I was ";
+System.out.println("Dot " + string1 + "Tod");
+which prints
+
+Dot saw I was Tod
+Such a concatenation can be a mixture of any objects. For each object that is not a String, its toString() method is called to convert it to a String.
+
+Note: The Java programming language does not permit literal strings to span lines in source files, so you must use the + concatenation operator at the end of each line in a multi-line string. For example:
+
+String quote = 
+    "Now is the time for all good " +
+    "men to come to the aid of their country.";
+Breaking strings between lines using the + concatenation operator is, once again, very common in print statements.
+
+Creating Format Strings
+
+You have seen the use of the printf() and format() methods to print output with formatted numbers. The String class has an equivalent class method, format(), that returns a Stringobject rather than a PrintStream object.
+
+Using String's static format() method allows you to create a formatted string that you can reuse, as opposed to a one-time print statement. For example, instead of
+
+System.out.printf("The value of the float " +
+                  "variable is %f, while " +
+                  "the value of the " + 
+                  "integer variable is %d, " +
+                  "and the string is %s", 
+                  floatVar, intVar, stringVar); 
+you can write
+
+String fs;
+fs = String.format("The value of the float " +
+                   "variable is %f, while " +
+                   "the value of the " + 
+                   "integer variable is %d, " +
+                   " and the string is %s",
+                   floatVar, intVar, stringVar);
+System.out.println(fs);
+Modifiers in java: 
+
+Java has public , package , protected , and private . The access modifier package is the default and used, if any other access modifier keyword is missing. Themeaning of these modifiers may differ from one language to another.
+
+Modifiers are keywords that you add to those definitions to change their meanings. Java language has a wide variety of modifiers, including the following −
+
+Java Access Modifiers
+
+Non Access Modifiers
+
+To use a modifier, you include its keyword in the definition of a class, method, or variable. The modifier precedes the rest of the statement, as in the following example.
+
+Example
+public class className {
+   // ...
+}
+ 
+private boolean myFlag;
+static final double weeks = 9.5;
+protected static final int BOXWIDTH = 42;
+ 
+public static void main(String[] arguments) {
+   // body of method
+}
+Access Control Modifiers
+Java provides a number of access modifiers to set access levels for classes, variables, methods and constructors. The four access levels are −
+
+Visible to the package, the default. No modifiers are needed.
+Visible to the class only (private).
+Visible to the world (public).
+Visible to the package and all subclasses (protected).
+Non-Access Modifiers
+Java provides a number of non-access modifiers to achieve many other functionality.
+
+The static modifier for creating class methods and variables.
+
+The final modifier for finalizing the implementations of classes, methods, and variables.
+
+The abstract modifier for creating abstract classes and methods.
+
+The synchronized and volatile modifiers, which are used for threads.
+
+
+
+Controlling Access to Members of a Class
+
+Access level modifiers determine whether other classes can use a particular field or invoke a particular method. There are two levels of access control:
+
+At the top level—public, or package-private (no explicit modifier).
+At the member level—public, private, protected, or package-private (no explicit modifier).
+A class may be declared with the modifier public, in which case that class is visible to all classes everywhere. If a class has no modifier (the default, also known as package-private), it is visible only within its own package (packages are named groups of related classes — you will learn about them in a later lesson.)
+
+At the member level, you can also use the public modifier or no modifier (package-private) just as with top-level classes, and with the same meaning. For members, there are two additional access modifiers: private and protected. The private modifier specifies that the member can only be accessed in its own class. The protected modifier specifies that the member can only be accessed within its own package (as with package-private) and, in addition, by a subclass of its class in another package.
+
+
+
