@@ -1,0 +1,1439 @@
+Article No 6
+What Is an Object?
+Objects are key to understanding object-oriented technology. Look around right now and you'll find many examples of real-world objects: your dog, your desk, your television set, your bicycle.
+
+Real-world objects share two characteristics: They all have state and behavior. Dogs have state (name, color, breed, hungry) and behavior (barking, fetching, wagging tail). Bicycles also have state (current gear, current pedal cadence, current speed) and behavior (changing gear, changing pedal cadence, applying brakes). Identifying the state and behavior for real-world objects is a great way to begin thinking in terms of object-oriented programming.
+
+Take a minute right now to observe the real-world objects that are in your immediate area. For each object that you see, ask yourself two questions: "What possible states can this object be in?" and "What possible behavior can this object perform?". Make sure to write down your observations. As you do, you'll notice that real-world objects vary in complexity; your desktop lamp may have only two possible states (on and off) and two possible behaviors (turn on, turn off), but your desktop radio might have additional states (on, off, current volume, current station) and behavior (turn on, turn off, increase volume, decrease volume, seek, scan, and tune). You may also notice that some objects, in turn, will also contain other objects. These real-world observations all translate into the world of object-oriented programming.
+
+Software objects are conceptually similar to real-world objects: they too consist of state and related behavior. An object stores its state in fields (variables in some programming languages) and exposes its behavior through methods (functions in some programming languages). Methods operate on an object's internal state and serve as the primary mechanism for object-to-object communication. Hiding internal state and requiring all interaction to be performed through an object's methods is known as data encapsulation — a fundamental principle of object-oriented programming.:
+
+By attributing state (current speed, current pedal cadence, and current gear) and providing methods for changing that state, the object remains in control of how the outside world is allowed to use it. For example, if the bicycle only has 6 gears, a method to change gears could reject any value that is less than 1 or greater than 6.
+
+Bundling code into individual software objects provides a number of benefits, including:
+
+Modularity: The source code for an object can be written and maintained independently of the source code for other objects. Once created, an object can be easily passed around inside the system.
+Information-hiding: By interacting only with an object's methods, the details of its internal implementation remain hidden from the outside world.
+Code re-use: If an object already exists (perhaps written by another software developer), you can use that object in your program. This allows specialists to implement/test/debug complex, task-specific objects, which you can then trust to run in your own code.
+Pluggability and debugging ease: If a particular object turns out to be problematic, you can simply remove it from your application and plug in a different object as its replacement. This is analogous to fixing mechanical problems in the real world. If a bolt breaks, you replace it, not the entire machine.
+The Benefits of Encapsulation
+Encapsulating related variables and methods into a neat software bundle is a simple yet powerful idea that provides two primary benefits to software developers:
+Modularity--The source code for an object can be written and maintained independently of the source code for other objects. Also, an object can be easily passed around in the system. You can give your bicycle to someone else and it will still work.
+Information hiding--An object has a public interface that other objects can use to communicate with it. But the object can maintain private information and methods that can be changed at any time without affecting the other objects that depend on it. You don't need to understand the gear mechanism on your bike in order to use it.
+Class declaration:
+A class is a template for manufacturing objects. You declare a class by specifying the class keyword followed by a non-reserved identifier that names it. A pair of matching open and close brace characters ({ and }) follow and delimit the class's body. This syntax appears below:
+
+class identifier
+{
+   // class body
+}
+By convention, the first letter of a class's name is uppercased and subsequent characters are lowercased (for example, Employee). If a name consists of multiple words, the first letter of each word is uppercased (such as SavingsAccount). This naming convention is called  camelcasing.
+
+The following example declares a class named Book:
+
+class Book
+{
+   // class body
+}
+A class's body is populated with fields, methods, and constructors. Combining these language features into classes is known as encapsulation. This capability lets us program at a higher level of abstraction (classes and objects) rather than focusing separately on data structures and functionality.
+
+
+
+Utility classes
+A class can be designed to have nothing to do with object manufacturing. Instead, it exists as a placeholder for class fields and/or class methods. Such a class is known as a utility class. An example of a utility class is the Java standard class library's Math class. See the 
+
+Multi-class applications and main()
+A Java application is implemented by one or more classes. Small applications can be accommodated by a single class, but larger applications often require multiple classes. In that case one of the classes is designated as the main classand contains the main() entry-point method. For example, Listing 1 presents an application built using three classes: A, B, and C; C is the main class.
+
+Listing 1. A Java application with multiple classes
+class A
+{
+}
+ 
+class B
+{
+}
+ 
+class C
+{
+   public static void main(String[] args)
+   {
+      System.out.println("Application C entry point");
+   }
+}
+You could declare these three classes in a single source file, such as D.java. You would then compile this source file as follows:
+
+<strong>javac D.java</strong>
+
+The compiler generates three class files: A.class, B.class, and C.class. Run this application via the following command:
+
+java C
+You should observe the following output:
+
+Application C entry point
+Alternatively, you could declare each class in its own source file. By convention, the source file's name matches the class name. You would declare A in A.java, for instance. You could then compile these source files separately:
+
+javac A.java
+javac B.java
+javac C.java
+To save time, you could compile all three source files at once by replacing the file name with an asterisk (but keep the .java file extension):
+
+javac *.java
+Either way, you would run the application via the following command:
+
+java C
+Public classes
+Java lets you declare a class with public access via the public keyword. When you declare a class public, you must store it in a file with the same name. For example, you would store public class C {} in C.java. You may declare only one public class in a source file.
+
+When designing multi-class applications, you will designate one of these classes as the main class and locate the main() method in it. However, there is nothing to prevent you from declaring main() methods in the other classes, perhaps for testing purposes. This technique is shown in Listing 2.
+
+Listing 2. Declaring more than one main() method
+class A
+{
+   public static void main(String[] args)
+   {
+      System.out.println("Testing class A");
+   }
+}
+ 
+class B
+{
+   public static void main(String[] args)
+   {
+      System.out.println("Testing class B");
+   }
+}
+ 
+class C
+{
+   public static void main(String[] args)
+   {
+      System.out.println("Application C entry point");
+   }
+}
+After compiling the source code, you would execute the following commands to test the helper classes A and B, and to run the application class C:
+
+java A
+java B
+java C
+You would then observe the following lines of output, one line per javacommand:
+
+Testing class A
+Testing class B
+Application C entry point
+Be careful with main()
+Placing a main() method in each class can be confusing, especially if you forget to document the main class. Also, you might forget to remove these methods before putting the application into production, in which case their presence would add bulk to the application. Furthermore, someone might run one of the supporting classes, which could disrupt the application's environment.
+
+
+
+Initialization
+The previous fields were not assigned values. When you don't explicitly initialize a field, it's implicitly initialized with all of its bits set to zero. You interpret this default value as false (for boolean), '\u0000' (for char), 0 (for int), 0L (for long), 0.0F (for float), 0.0 (for double), or null (for a reference type).
+
+However, it is also possible to explicitly initialize a field when the field is declared. For example, you could specify static int count = 0; (which isn't necessary because count defaults to 0), String logfile = "log.txt";, static int ID = 1;, or even double sinPIDiv2 = Math.sin(Math.PI / 2);.
+
+Although you can initialize an instance field through direct assignment, it's more common to perform this initialization in a constructor, which I'll demonstrate later. In contrast, a class field (especially a class constant) is typically initialized through direct assignment of an expression to the field.
+
+Local variables
+Within a method or constructor, you can declare additional variables as part of its implementation. These variables are known as local variables because they are local to the method/constructor. They exist only while the method or constructor is executing and cannot be accessed from outside the method/constructor. Consider the following example:
+
+static void average(double[] values)
+{
+   double sum = 0.0;
+   for (int i = 0; i < values.length; i++)
+      sum += values[i];
+   System.out.println("Average: " + (sum / values.length));
+}
+Inheritance
+In the preceding lessons, you have seen inheritance mentioned several times. In the Java language, classes can be derived from other classes, thereby inheriting fields and methods from those classes.
+
+Definitions: A class that is derived from another class is called a subclass (also a derived class, extended class, or child class). The class from which the subclass is derived is called a superclass (also a base class or a parent class).
+
+Excepting Object, which has no superclass, every class has one and only one direct superclass (single inheritance). In the absence of any other explicit superclass, every class is implicitly a subclass of Object.
+
+Classes can be derived from classes that are derived from classes that are derived from classes, and so on, and ultimately derived from the topmost class, Object. Such a class is said to be descended from all the classes in the inheritance chain stretching back to Object.
+
+The Java Platform Class Hierarchy
+The Object class, defined in the java.lang package, defines and implements behavior common to all classes—including the ones that you write. In the Java platform, many classes derive directly from Object, other classes derive from some of those classes, and so on, forming a hierarchy of classes.
+
+All Classes in the Java Platform are Descendants of Object
+
+All Classes in the Java Platform are Descendants of Object
+
+At the top of the hierarchy, Object is the most general of all classes. Classes near the bottom of the hierarchy provide more specialized behavior.
+
+An Example of Inheritance
+Here is the sample code for a possible implementation of a Bicycle class that was presented in the Classes and Objects lesson:
+
+public class Bicycle {
+        
+    // the Bicycle class has three fields
+    public int cadence;
+    public int gear;
+    public int speed;
+        
+    // the Bicycle class has one constructor
+    public Bicycle(int startCadence, int startSpeed, int startGear) {
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+    }
+        
+    // the Bicycle class has four methods
+    public void setCadence(int newValue) {
+        cadence = newValue;
+    }
+        
+    public void setGear(int newValue) {
+        gear = newValue;
+    }
+        
+    public void applyBrake(int decrement) {
+        speed -= decrement;
+    }
+        
+    public void speedUp(int increment) {
+        speed += increment;
+    }
+        
+}
+A class declaration for a MountainBike class that is a subclass of Bicycle might look like this:
+
+public class MountainBike extends Bicycle {
+        
+    // the MountainBike subclass adds one field
+    public int seatHeight;
+ 
+    // the MountainBike subclass has one constructor
+    public MountainBike(int startHeight,
+                        int startCadence,
+                        int startSpeed,
+                        int startGear) {
+        super(startCadence, startSpeed, startGear);
+        seatHeight = startHeight;
+    }   
+        
+    // the MountainBike subclass adds one method
+    public void setHeight(int newValue) {
+        seatHeight = newValue;
+    }   
+}
+MountainBike inherits all the fields and methods of Bicycle and adds the field seatHeight and a method to set it. Except for the constructor, it is as if you had written a new MountainBikeclass entirely from scratch, with four fields and five methods. However, you didn't have to do all the work. This would be especially valuable if the methods in the Bicycle class were complex and had taken substantial time to debug.
+
+What You Can Do in a Subclass
+A subclass inherits all of the public and protected members of its parent, no matter what package the subclass is in. If the subclass is in the same package as its parent, it also inherits the package-private members of the parent. You can use the inherited members as is, replace them, hide them, or supplement them with new members:
+
+The inherited fields can be used directly, just like any other fields.
+You can declare a field in the subclass with the same name as the one in the superclass, thus hiding it (not recommended).
+You can declare new fields in the subclass that are not in the superclass.
+The inherited methods can be used directly as they are.
+You can write a new instance method in the subclass that has the same signature as the one in the superclass, thus overriding it.
+You can write a new static method in the subclass that has the same signature as the one in the superclass, thus hiding it.
+You can declare new methods in the subclass that are not in the superclass.
+You can write a subclass constructor that invokes the constructor of the superclass, either implicitly or by using the keyword super.
+Inheritance in Java is not an estate or a classic car from a long-lost relative. It means certain classes can share attributes from other classes. Here, we'll learn the concept and the syntax for this powerful feature of Java.
+
+A Great Inheritance
+Inheritance is a wonderful thing in Java. It's a term used often in object-oriented programming. But what does it really mean? And how do you harness this powerful concept?
+
+To inherit in Java means allowing all methods and variables from one class to be accessible by another class. That is, the new class inherits these items. The parent class, also called superclass, is the class is the one whose methods and variables can be used in the child class (also called subclass).
+
+Another way to think of the inheritance concept is the phrase is a: A union employee is an employee; a paperback book is a book. It's more than a child inheriting 50% of their parent's DNA - they get all of it.
+
+The subclass gets all the goodies from the parent class, but it can also create its own variables and methods.
+
+Inheritance is a key part of object-oriented programming. It allows for use and re-use of objects, methods, and variables, without having to add extra/redundant code.
+
+Syntax
+The syntax for creating a subclass, and thus harnessing inheritance is:
+
+public class Class extends ParentClass {
+  //new variable or methods here
+}
+Inheritance in Java: Example
+Let's look at some code. The following example creates an Employee class and another class for a union employee. All of the features of the employee class, such as pay, FTE (full-time equivalent; how many hours you work in a pay period), come over to the Union class. However, this class can be used for its own methods.
+
+public class Employee {
+  private double payRate;
+  private String fullName;
+  private double FTE;
+  public void calculatePay() {
+   //calculate the pay here
+  }
+}
+public class UnionEmployee extends Employee {
+  // everything from Employee will come over
+  // new fields for UnionEmployee:
+  private String barganingUnit;
+  private String unionCode;
+  private double unionDues;
+  public void calculateUnionDues() {
+   // can use the Employee calc pay
+   // also special calc for dues
+  }
+}
+The subclass can use the variables and methods from the parent class, but not vice versa. 
+
+Java Interfaces: Definition & Examples
+A Java interface need not be a scary concept: It is like a class, but without methods. Interfaces are used to work with several classes and share information between them. We will define the term and provide examples of Java code.
+
+Interfaces: They Aren't That Scary
+When we think interface, we can think of the app icons on our phones: They are the interface between your thumb and the processing unit on the phone. This concept can also be applied to Java: an interface is the gateway to different objects and methods. A book interface might call methods that might turn the page, open an index, or search for text.
+
+An interface won't actually hold the code for turning the page, however. It's just the gateway.
+
+So why use an interface in Java? One of the biggest reasons to use interfaces in Java is to avoid the multiple inheritance restriction.
+
+Multiple Inheritance
+Other languages support multiple inheritance, a subclass inheriting from multiple parent classes. Java doesn't allow this. However, a way around this restriction is through the use of interfaces.
+
+For example, think of a Periodicals class: You can create three classes, each that inherit from Periodicals, say Books, Magazines, and Newsletters. However, you can't create a How-To Manual that inherits from ALL of the other classes. The following graphic depicts this restriction:
+
+
+
+Java Multiple Inheritance Not Allowed
+
+
+Instead, you can create an interface so that you can still get to the pieces you need from the other classes.
+
+Interfaces: Examples
+Let's create a basic interface that draws on our example above. We'll start at the highest level, Periodicals, and gradually work our down to the How-To Manual.
+
+First, create a Periodicals class, and the interface that calls some methods within the Periodicals class. Remember, interfaces are declared with the interface statement:
+
+
+
+Java Interface Basic
+
+
+You'll notice that the interface calls the methods getPublisher and getPublishDate. This is all it can do with methods; it can't create its own. These methods as they are displayed here are called abstract methods.
+
+Abstract methods are those that are declared but don't actually have any code in them. The real code in the method is defined somewhere else. Again, think of the interface on the phone: The Pinterest button doesn't do Pinterest work, it just opens the application.
+
+One of the classes shown in the earlier diagram is the Books class. The Books class can easily inherit from the Periodicals class, it's the How-To Manual that can't inherit from everybody.
+
+So now let's create the Books class. We will inherit from the Periodicals class, but we will also want to implement, or invoke, the interface we created for Periodicals. To do this we need the implements keyword when we define the class so that Java knows which interface is being used.
+
+Additionally, we have to create the two methods we referenced in the interface definition!
+
+
+
+Java Interface Class Implements
+
+
+Let's put this all together in a working program. Items have moved a little, but the core code remains. In the main method, we create a new Books object and call the methods.
+
+
+
+Java Basic Interface Full Code
+
+
+The output of running the above code will be:
+
+
+
+Java interface output
+
+
+Multiple Classes
+Now we can get to the fun stuff: bypassing the multiple inheritance restriction and using the interface across classes.
+
+Our end goal is to create a How-To Manual class that can draw from both the Periodicals AND the Books classes. One interface cannot implement another one, but it can extend another one. This is done by using the extends keyword when creating the interface, and referencing the interface you are extending. Extends is also used when creating a child class; it tells Java which parent class is being inherited.
+
+First, let's create the interface for the books class. We've included the original interface, getPeriodicals, for reference. Note that the get Books interface the original interface.
+
+interface
+
+
+Java interfaces are different from classes, and it's important to know how to use their special properties in your programs. This article introduces the difference between classes and interfaces, then guides you through short examples demonstrating how to declare, implement, and extend Java interfaces. I also demonstrate how the interface has evolved in Java 8, with the addition of default and static methods. These additions make interfaces more useful to experienced developers, but they also blur the lines between classes and interfaces, making interface programming even more confusing to Java beginners.
+
+What is an interface?
+An interface is a point where two systems meet and interact. For example, a vending machine interface is a mechanism that allows users to select an item, pay for it, and receive the desired food or drink. From a programming perspective, an interface sits between software components. Consider that a method header (method name, parameter list, and so on) interface sits between external code that calls the method and the code within the method that will be executed as a result of the call. Here is an example:
+
+System.out.println(average(10, 15));
+double average(double x, double y) // interface between average(10, 15) call and return (x + y) / 2;
+{
+   return (x + y) / 2;
+}
+What's often confusing to Java beginners is that classes also have interfaces. As I explained in Java 101: Classes and objects in Java, the interface is the part of the class that is accessible to code located outside of it. A class's interface consists of some combination of methods, fields, constructors, and other entities. Consider Listing 1.
+
+Listing 1. Declaring an Account class
+class Account
+{
+   private String name;
+   private long amount;
+   Account(String name, long amount)
+   {
+      this.name = name;
+      setAmount(amount);
+   }
+   void deposit(long amount)
+   {
+      this.amount += amount;
+   }
+   String getName()
+   {
+      return name;
+   }
+   long getAmount()
+   {
+      return amount;
+   }
+   void setAmount(long amount)
+   {
+      this.amount = amount;
+   }
+}
+The Account(String name, long amount) constructor and the void deposit(long amount), String getName(), long getAmount(), and void setAmount(long amount) methods form the Account class's interface: they are accessible to external code. The private String name; and private long amount; fields are inaccessible.
+
+The code that supports a method's or a class's interface (such as a class's private fields) is known as implementation code. Implementation code should be hidden from external code so that it can be changed to meet evolving requirements.
+
+Exposed implementation code can lead to unwanted interdependencies between software components. For example, method code might come to rely on external variables, or a class's users could become dependent on fields that should have been hidden. This coupling might not be an issue for the early iterations of the software, but it can lead to problems when an implementation must evolve.
+
+Java developers use the interface language feature to abstract class interfaces, thus decoupling classes from their users. By focusing on Java interfaces instead of classes, you can minimize the number of references to class names in your source code. This facilitates changing from one class to another (perhaps to improve performance) as your software matures. Here is an example:
+
+List names = new ArrayList<>()
+void print(List names)
+{
+ // ...
+}
+This simple program declares and initializes a names field that stores a list of string names. The program also declares a print() method for printing out the contents of a list of strings, perhaps one string per line. For brevity, I've omitted the method's implementation.
+
+List is a Java interface that describes a sequential collection of objects. ArrayList is a class that describes an array-based implementation of the ListJava interface. A new instance of the ArrayList class is obtained and assigned to List variable names. (List and ArrayList are stored in the standard class library's java.util package.)
+
+Angle brackets and generics
+The angle brackets (< and >) are part of Java's generics feature set. They indicate that names describes a list of strings (only strings can be stored in the list). I'll introduce generics in a future Java 101 article.
+
+When client code interacts with names, it will invoke those methods that are declared by List, and which are implemented by ArrayList. The client code will not interact directly with ArrayList. As a result, the client code will not break when a different implementation class, such as LinkedList, is required:
+
+List names = new LinkedList<>()
+// ...
+void print(List names)
+{
+ // ...
+}
+Because the print() method parameter type is List, this method's implementation doesn't have to change. However, if the type had been ArrayList, the type would have to be changed to LinkedList. If both classes were to declare their own unique methods, you might need to significantly change print()'s implementation.
+
+Decoupling List from ArrayList and LinkedList lets you write code that's immune to class-implementation changes. By using Java interfaces, you can avoid problems that could arise from relying on implementation classes. This decoupling is the main reason for using Java interfaces.
+
+Interfaces vs Java interfaces
+Earlier, I distinguished between interface (a generic term) and Java interface(Java's interface language feature) to avoid confusion. Because the remainder of the article focuses on Java interfaces, I'll drop "Java" and just specify "interfaces."
+
+Interface declaration
+You declare an interface by adhering to a class-like syntax that consists of a header followed by a body. At minimum, the header consists of keyword interface followed by a name that identifies the interface. The body starts with an open-brace character and ends with a close-brace. Between these delimiters are constant and method header declarations:
+
+interface identifier
+{
+   // interface body
+}
+ 
+By convention, the first letter of an interface's name is uppercased and subsequent characters are lowercased (for example, Drawable). If a name consists of multiple words, the first letter of each word is uppercased (such as DrawableAndFillable). This naming convention is known as CamelCasing.
+
+Listing 2 declares an interface named Drawable.
+
+Listing 2. Declaring a Drawable interface
+interface Drawable
+{
+   int RED = 1;
+   int GREEN = 2;
+   int BLUE = 3;
+   int BLACK = 4;
+   int WHITE = 5;
+   void draw(int color);
+}
+ 
+Interface names in Java's standard class library
+
+Many interface names in Java's standard class library end with the able suffix. Examples include Callable, Cloneable, Comparable, Formattable, Iterable, Runnable, Serializable, and Transferable. The suffix isn't mandatory, however; the standard class library includes the interfaces CharSequence, ClipboardOwner, Collection, Executor, Future, Iterator, List, Map and many others.
+
+Drawable declares five fields that identify color constants. This interface also declares the header for a draw() method that must be called with one of these constants to specify the color used to draw an outline. (Using integer constants isn't a good idea because any integer value could be passed to draw(). However, they suffice in a simple example.)
+
+Field and method header defaults
+Fields that are declared in an interface are implicitly public final static. An interface's method headers are implicitly public abstract.
+
+Drawable identifies a reference type that specifies what to do (draw something) but not how to do it. Implementation details are consigned to classes that implement this interface. Instances of such classes are known as drawables because they know how to draw themselves.
+
+Marker and tagging interfaces
+An interface with an empty body is known as a marker interface or a tagging interface. The interface exists only to associate metadata with a class. For example, Cloneable (see 
+
+Implementing interfaces
+A class implements an interface by appending Java's implements keyword followed by a comma-separated list of interface names to the class header, and by coding each interface method in the class. Listing 3 presents a class that implements Listing 2's Drawable interface.
+
+Listing 3. Circle implementing the Drawable interface
+class Circle implements Drawable
+{
+   private double x, y, radius;
+   Circle(double x, double y, double radius)
+   {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+   }
+   @Override
+   public void draw(int color)
+   {
+      System.out.println("Circle drawn at (" + x + ", " + y + 
+                         "), with radius " + radius + ", and color " + color);
+   }
+   double getRadius()
+   {
+      return radius;
+   }
+   double getX()
+   {
+      return x;
+   }
+   double getY()
+   {
+      return y;
+   }
+}
+ 
+Listing 3's Circle class describes a circle as a center point and a radius. As well as providing a constructor and suitable getter methods, Circle implements the Drawable interface by appending implements Drawable to the Circle header, and by overriding (as indicated by the @Override annotation) Drawable's draw()method header.
+
+Interface method header overriding caution
+When you implement an interface method (by overriding the interface's method header), remember that all of the methods whose headers are declared in the interface are implicitly declared public. If you forget to include public in the implemented method's declaration, the compiler will report an error informing you that you're attempting to assign weaker access to the implemented method.
+
+Listing 4 presents a second example: a Rectangle class that also implements Drawable.
+
+Listing 4. Implementing the Drawable interface in a Rectangle context
+class Rectangle implements Drawable
+{
+   private double x1, y1, x2, y2;
+   Rectangle(double x1, double y1, double x2, double y2)
+   {
+      this.x1 = x1;
+      this.y1 = y1;
+      this.x2 = x2;
+      this.y2 = y2;
+   }
+   @Override
+   public void draw(int color)
+   {
+      System.out.println("Rectangle drawn with upper-left corner at (" + x1 + 
+                         ", " + y1 + ") and lower-right corner at (" + x2 +
+                         ", " + y2 + "), and color " + color);
+   }
+   double getX1()
+   {
+      return x1;
+   }
+   double getX2()
+   {
+      return x2;
+   }
+   double getY1()
+   {
+      return y1;
+   }
+   double getY2()
+   {
+      return y2;
+   }
+}
+ 
+Listing 4's Rectangle class describes a rectangle as a pair of points denoting the upper-left and lower-right corners of this shape. As with Circle, Rectangleprovides a constructor and suitable getter methods, and also implements the Drawable interface.
+
+Overriding interface method headers
+The compiler reports an error when you attempt to compile a non-abstractclass that includes an implements interface clause but doesn't override all of the interface's method headers.
+
+An interface type's data values are the objects whose classes implement the interface and whose behaviors are those specified by the interface's method headers. This fact implies that you can assign an object's reference to a variable of the interface type, provided that the object's class implements the interface. Listing 5 demonstrates.
+
+Listing 5. Aliasing Circle and Rectangle objects as Drawables
+class Draw
+{
+   public static void main(String[] args)
+   {
+      Drawable[] drawables = new Drawable[] { new Circle(10, 20, 15), 
+                                              new Circle(30, 20, 10),
+                                              new Rectangle(5, 8, 8, 9) };
+      for (int i = 0; i < drawables.length; i++)
+         drawables[i].draw(Drawable.RED);
+   }
+}
+Because Circle and Rectangle implement Drawable, Circle and Rectangleobjects have Drawable type in addition to their class types. Therefore, it's legal to store each object's reference in an array of Drawables. A loop iterates over this array, invoking each Drawable object's draw() method to draw a circle or a rectangle.
+
+Assuming that Listing 2 is stored in a Drawable.java source file, which is in the same directory as the Circle.java, Rectangle.java, and Draw.java source files (which respectively store Listing 3, Listing 4, and Listing 5), compile these source files via either of the following command lines:
+
+javac Draw.java
+javac *.java
+ 
+Run the Draw application as follows:
+
+java Draw
+ 
+You should observe the following output:
+
+Circle drawn at (10.0, 20.0), with radius 15.0, and color 1
+Circle drawn at (30.0, 20.0), with radius 10.0, and color 1
+Rectangle drawn with upper-left corner at (5.0, 8.0) and lower-right corner at (8.0, 9.0), and color 1
+ 
+Note that you could also generate the same output by specifying the following main() method:
+
+public static void main(String[] args)
+{
+   Circle c = new Circle(10, 20, 15);
+   c.draw(Drawable.RED);
+   c = new Circle(30, 20, 10);
+   c.draw(Drawable.RED);
+   Rectangle r = new Rectangle(5, 8, 8, 9);
+   r.draw(Drawable.RED);
+}
+ 
+As you can see, it's tedious to repeatedly invoke each object's draw() method. Furthermore, doing so adds extra bytecode to Draw's class file. By thinking of Circle and Rectangle as Drawables, you can leverage an array and a simple loop to simplify the code. This is an additional benefit from designing code to prefer interfaces over classes.
+
+Implementing multiple interfaces
+Earlier, I mentioned that a class can implement multiple interfaces. Each interface's name is specified as part of a comma-separated list of names that follows the implements keyword. Listing 6 presents a simple example where class C implements interfaces A and B.
+
+Listing 6. Implementing multiple interfaces
+interface A
+{
+   // appropriate constants and/or method headers
+}
+interface B
+{
+   // appropriate constants and/or method headers
+}
+class C implements A, B
+{
+   // override A's and B's method headers
+}
+Beware of the potential for name collisions when implementing multiple interfaces. This occurs when the same constant name appears in each interface, possibly with different type and/or other information, and is accessed in the class. When a name collision occurs, the compiler will report an error, which is demonstrated in Listing 7.
+
+Listing 7. Demonstrating colliding constants
+interface A
+{
+   int CONSTANT = 2;
+   void method();
+}
+interface B
+{
+   int CONSTANT = 3;
+   int method(int x);
+}
+class C implements A, B
+{
+   int x = CONSTANT;
+   @Override
+   public void method()
+   {
+   }
+   @Override
+   public int method(int x)
+   {
+      return x;
+   }
+}
+ 
+Here, class C is inheriting two different constants named CONSTANT that are initialized to two different values. The Java compiler cannot determine which constant should be inherited by C (the same problem would occur if each constant was assigned the same value) and reports the following error message:
+
+C.java:15: error: reference to CONSTANT is ambiguous
+   int x = CONSTANT;
+           ^
+  both variable CONSTANT in A and variable CONSTANT in B match
+1 error
+ 
+Extending interfaces
+A class that implements an interface reveals interface inheritance. The class inherits the interface's constants and method headers, which it overrides. For example, each of Circle and Rectangle inherits Drawable's five integer constants and draw() method header.
+
+Interface inheritance is also demonstrated when an interface extends another interface. Just as a subclass can extend a superclass via reserved word extends, you can use this reserved word to have a subinterface extend a superinterface. Listing 8 demonstrates.
+
+Listing 8. Declaring a Fillable subinterface that extends the Drawable superinterface
+interface Fillable extends Drawable
+{
+   void fill(int color);
+}
+ 
+Fillable extends Drawable, inheriting its color constants and draw() method header. Fillable also declares the header for a fill() method that must be called with one of these constants to specify the color used to fill an interior. (Fillable extends Drawable to support drawing an outline as well as filling an interior.)
+
+You could retrofit the previous Circle and Rectangle classes to support Fillable by performing the following steps:
+
+Change implements Drawable to implements Fillable. There is no need to specify either implements Drawable, Fillable or implements Fillable, Drawable because Fillable includes all of Drawable by extension.
+Override the fill() method header in the same manner as overriding the draw() method header.
+Listing 9 presents an equivalent Fill application that demonstrates the Fillinterface.
+
+Listing 9. Aliasing Circle and Rectangle objects as Fillables
+class Fill
+{
+   public static void main(String[] args)
+   {
+      Fillable[] fillables = new Fillable[] { new Circle(10, 20, 15), 
+                                              new Circle(30, 20, 10),
+                                              new Rectangle(5, 8, 8, 9) };
+      for (int i = 0; i < fillables.length; i++)
+      {
+         fillables[i].draw(Drawable.RED);
+         fillables[i].fill(Fillable.BLACK);
+      }
+   }
+}
+ 
+Circle and Rectangle implement Fillable, giving Circle and Rectangleobjects a Fillable type in addition to their class types. Therefore, it's legal to store each object's reference in an array of Fillables. A loop iterates over this array, invoking each Fillable's inherited draw() and non-inherited fill()methods to draw and fill a circle or a rectangle.
+
+If Listing 2 is stored in Drawable.java, which is in the same directory as Circle.java, Rectangle.java, Fillable.java, and Fill.java (respectively storing Listing 3 and Listing 4, with updates, Listing 8, and a source file that stores Listing 9) you can compile these source files using either of the following command lines:
+
+javac Fill.java
+javac *.java
+ 
+Run the Fill application as follows:
+
+java Fill
+ 
+You should observe the following output:
+
+Circle drawn at (10.0, 20.0), with radius 15.0, and color 1
+Circle filled at (10.0, 20.0), with radius 15.0, and color 4
+Circle drawn at (30.0, 20.0), with radius 10.0, and color 1
+Circle filled at (30.0, 20.0), with radius 10.0, and color 4
+Rectangle drawn with upper-left corner at (5.0, 8.0) and lower-right corner at (8.0, 9.0), and color 1
+Rectangle filled with upper-left corner at (5.0, 8.0) and lower-right corner at (8.0, 9.0), and color 4
+ 
+You can upcast the interface type of an object from a subinterface to a superinterface because a subinterface is a kind of superinterface. For example, you could assign a Fillable reference to a Drawable variable and then invoke Drawable's draw() method on the variable:
+
+Drawable d = fillables[0];
+d.draw(Drawable.GREEN);
+ 
+Extending multiple interfaces
+As with interface implementation, you can extend multiple interfaces. Each interface's name is specified as part of a comma-separated list of names that follows the extends keyword. Listing 10 presents a simple example where interface C extends interfaces A and B.
+
+
+
+Polymorphism
+The dictionary definition of polymorphism refers to a principle in biology in which an organism or species can have many different forms or stages. This principle can also be applied to object-oriented programming and languages like the Java language. Subclasses of a class can define their own unique behaviors and yet share some of the same functionality of the parent class.
+
+Polymorphism can be demonstrated with a minor modification to the Bicycle class. For example, a printDescription method could be added to the class that displays all the data currently stored in an instance.
+
+public void printDescription(){
+    System.out.println("\nBike is " + "in gear " + this.gear
+        + " with a cadence of " + this.cadence +
+        " and travelling at a speed of " + this.speed + ". ");
+}
+To demonstrate polymorphic features in the Java language, extend the Bicycle class with a MountainBike and a RoadBike class. For MountainBike, add a field for suspension, which is a String value that indicates if the bike has a front shock absorber, Front. Or, the bike has a front and back shock absorber, Dual.
+
+Here is the updated class:
+
+public class MountainBike extends Bicycle {
+    private String suspension;
+ 
+    public MountainBike(
+               int startCadence,
+               int startSpeed,
+               int startGear,
+               String suspensionType){
+        super(startCadence,
+              startSpeed,
+              startGear);
+        this.setSuspension(suspensionType);
+    }
+ 
+    public String getSuspension(){
+      return this.suspension;
+    }
+ 
+    public void setSuspension(String suspensionType) {
+        this.suspension = suspensionType;
+    }
+ 
+    public void printDescription() {
+        super.printDescription();
+        System.out.println("The " + "MountainBike has a" +
+            getSuspension() + " suspension.");
+    }
+} 
+Note the overridden printDescription method. In addition to the information provided before, additional data about the suspension is included to the output.
+
+Next, create the RoadBike class. Because road or racing bikes have skinny tires, add an attribute to track the tire width. Here is the RoadBike class:
+
+public class RoadBike extends Bicycle{
+    // In millimeters (mm)
+    private int tireWidth;
+ 
+    public RoadBike(int startCadence,
+                    int startSpeed,
+                    int startGear,
+                    int newTireWidth){
+        super(startCadence,
+              startSpeed,
+              startGear);
+        this.setTireWidth(newTireWidth);
+    }
+ 
+    public int getTireWidth(){
+      return this.tireWidth;
+    }
+ 
+    public void setTireWidth(int newTireWidth){
+        this.tireWidth = newTireWidth;
+    }
+ 
+    public void printDescription(){
+        super.printDescription();
+        System.out.println("The RoadBike" + " has " + getTireWidth() +
+            " MM tires.");
+    }
+}
+Note that once again, the printDescription method has been overridden. This time, information about the tire width is displayed.
+
+To summarize, there are three classes: Bicycle, MountainBike, and RoadBike. The two subclasses override the printDescription method and print unique information.
+
+Here is a test program that creates three Bicycle variables. Each variable is assigned to one of the three bicycle classes. Each variable is then printed.
+
+public class TestBikes {
+  public static void main(String[] args){
+    Bicycle bike01, bike02, bike03;
+ 
+    bike01 = new Bicycle(20, 10, 1);
+    bike02 = new MountainBike(20, 10, 5, "Dual");
+    bike03 = new RoadBike(40, 20, 8, 23);
+ 
+    bike01.printDescription();
+    bike02.printDescription();
+    bike03.printDescription();
+  }
+}
+The following is the output from the test program:
+
+Bike is in gear 1 with a cadence of 20 and travelling at a speed of 10. 
+ 
+Bike is in gear 5 with a cadence of 20 and travelling at a speed of 10. 
+The MountainBike has a Dual suspension.
+ 
+Bike is in gear 8 with a cadence of 40 and travelling at a speed of 20. 
+The RoadBike has 23 MM tires.
+The Java virtual machine (JVM) calls the appropriate method for the object that is referred to in each variable. It does not call the method that is defined by the variable's type. This behavior is referred to as virtual method invocation and demonstrates an aspect of the important polymorphism features in the Java language.
+
+
+
+Inheritance vs. Polymorphism in Java
+Object-Oriented Principles
+Java is an object-oriented programming language. Therefore, everything is an object. An object, in turn, is an instance of a class. Think of a Sandwich: It basic components, such as bread or lettuce, and some sort of filling. When you create a tuna on rye, you are creating an instance of the sandwich class.
+
+When making a tuna on rye, you may have to invoke a few methods; that is, some sort of action to actually create the instance of the sandwich class. In Java, the methods might look like assembleSandwich() or getIngredients().
+
+Inheritance
+Think of a generic Sandwich object: this is our matriarch of the family. Next we can have hot, cold or iced sandwiches. The following graphic shows a sample of what we can create:
+
+
+
+Java inheritance family tree
+
+
+One thing you cannot do, however, is inherit from multiple direct parents. This may work in biology but Java puts its foot down: Inheriting from multiple classes is called multiple inheritance. The Philly Cheese can't inherit from both Hot AND Cold. It can inherit from Hot. Hot can inherit from Sandwich.
+
+In order to inherit from the parent, use the keyword extends in the code. The following examples show how each child class is created to inherit from the main Sandwich class:
+
+
+
+Java inherit extends
+
+
+Polymorphism
+The concept of polymorphism may be confusing, but it can be just what it implies: The ability to change to different things. It is the shape-shifter concept of Java. And, true to it's form (pardon the pun), there are three flavors of polymorphism in Java.
+
+Many Objects, One Name
+From our Sandwich family, you can create new instances of any of the Sandwich objects. For example, the following code is perfectly acceptable. You have polymorphed/shape-shifted the mySandwich object because Java lets you create instances of ANY of the classes.
+
+
+
+Java polymorphism multiple instances
+
+
+Overloading: Many Methods, One Name
+Think of the assembleSandwich() method for classes that are part of the Sandwich family. Each method is a little different (this concept is called overloading; when there are multiple methods with the same name but different actions).
+
+
+
+Java Polymorphism Multiple Methods
+
+
+As long as you call the assemble method and pass in the right arguments (number of cheese slices and the time for toasting), it will call the HotSandwich class. Even though we might have several assembleSandwich() methods, Java is smart enough to know which one we are using.
+
+But what if we had two methods with the same name AND parameters?
+
+Overriding: Same Name, Same Parameters
+It's perfectly OK to have a HotSandwich class with an assembleSandwich() method AND a PhillyCheese class to have the same method. They can even have the same parameters! Take a look at the code snippet for both classes (remember that PhillyCheese inherits all of the data and methods from HotSandwich!) We'll create a couple of methods, each printing different text.
+
+
+
+Java polymorphism override
+
+
+Now, we need a main function to create new instances of these objects.
+
+
+
+Java override main method
+Abstract Class
+Definition - What does Abstract Class mean?
+In programming languages, an abstract class is a generic class (or type of object) used as a basis for creating specific objects that conform to its protocol, or the set of operations it supports. Abstract classes are not instantiated directly.  Abstract classes are useful when creating hierarchies of classes that model reality because they make it possible to specify an invariant level of functionality in some methods, but leave the implementation of other methods until a specific implementation of that class (a derived class) is needed.
+
+Abstract Class
+In object-oriented programming (OOP) languages, classes represent objects in the domain of the problem the software is intended to solve. Classes include collections of attributes (properties) and behaviors (methods), which can be based on previously-defined classes. Programmers use inheritance to derive the specific implementation of abstract classes. Classes that are derived from abstract classes are called derived classes. When this principle is applied many times in succession, it results in a hierarchy of classes. In this context, abstract classes are at the root of this hierarchy, and is used to enforce methods that need to be overridden in the derived classes, thus avoiding potential runtime errors. An abstract class has at least one abstract method. An abstract method will not have any code in the base class; the code will be added in its derived classes. The abstract method in the derived class should be implemented with the same access modifier, number and type of argument, and with the same return type as that of the base class. Objects of abstract class type cannot be created, because the code to instantiate an object of the abstract class type will result in a compilation error.
+
+First, you declare an abstract class, GraphicObject, to provide member variables and methods that are wholly shared by all subclasses, such as the current position and the moveTo method. GraphicObject also declares abstract methods for methods, such as draw or resize, that need to be implemented by all subclasses but must be implemented in different ways. The GraphicObject class can look something like this:
+
+abstract class GraphicObject {
+    int x, y;
+    ...
+    void moveTo(int newX, int newY) {
+        ...
+    }
+    abstract void draw();
+    abstract void resize();
+}
+Each nonabstract subclass of GraphicObject, such as Circle and Rectangle, must provide implementations for the draw and resize methods:
+
+class Circle extends GraphicObject {
+    void draw() {
+        ...
+    }
+    void resize() {
+        ...
+    }
+}
+class Rectangle extends GraphicObject {
+    void draw() {
+        ...
+    }
+    void resize() {
+        ...
+    }
+}
+Super keyword in java
+The super keyword refers to the objects of immediate parent class. Before learning super keyword you must have the knowledge of inheritance in Java so that you can understand the examples given in this guide.
+
+The use of super keyword
+1) To access the data members of parent class when both parent and child class have member with same name 2) To explicitly call the no-arg and parameterized constructor of parent class 3) To access the method of parent class when child class has overridden that method.
+
+Now lets discuss them in detail with the help of examples:
+
+1) How to use super keyword to access the variables of parent class
+When you have a variable in child class which is already present in the parent class then in order to access the variable of parent class, you need to use the super keyword.
+
+Lets take an example to understand this: In the following program, we have a data member numdeclared in the child class, the member with the same name is already present in the parent class. There is no way you can access the num variable of parent class without using super keyword. .
+
+//Parent class or Superclass or base class
+class Superclass
+{
+   int num = 100;
+}
+//Child class or subclass or derived class
+class Subclass extends Superclass
+{
+   /* The same variable num is declared in the Subclass
+    * which is already present in the Superclass
+    */
+    int num = 110;
+    void printNumber(){
+    System.out.println(num);
+    }
+    public static void main(String args[]){
+    Subclass obj= new Subclass();
+    obj.printNumber();    
+    }
+}
+Output: 110
+
+Accessing the num variable of parent class: By calling a variable like this, we can access the variable of parent class if both the classes (parent and child) have same variable.
+
+super.variable_name
+Let’s take the same example that we have seen above, this time in print statement we are passing super.num instead of num.
+
+class Superclass
+{
+   int num = 100;
+}
+class Subclass extends Superclass
+{
+   int num = 110;
+   void printNumber(){
+    /* Note that instead of writing num we are
+     * writing super.num in the print statement
+     * this refers to the num variable of Superclass
+     */
+    System.out.println(super.num);
+   }
+   public static void main(String args[]){
+    Subclass obj= new Subclass();
+    obj.printNumber();    
+   }
+}
+Output: 100 As you can see by using super.num we accessed the num variable of parent class.
+
+2) Use of super keyword to invoke constructor of parent class
+When we create the object of sub class, the new keyword invokes the constructor of child class, which implicitly invokes the constructor of parent class. So the order to execution when we create the object of child class is: parent class constructor is executed first and then the child class constructor is executed. It happens because compiler itself adds super()(this invokes the no-arg constructor of parent class) as the first statement in the constructor of child class.
+
+Let’s see an example to understand what I have explained above:
+
+class Parentclass
+{
+   Parentclass(){
+    System.out.println("Constructor of parent class");
+   }
+}
+class Subclass extends Parentclass
+{
+   Subclass(){
+    /* Compile implicitly adds super() here as the
+     *  first statement of this constructor.
+     */
+    System.out.println("Constructor of child class");
+   }
+   Subclass(int num){
+    /* Even though it is a parameterized constructor.
+     * The compiler still adds the no-arg super() here
+     */
+    System.out.println("arg constructor of child class");
+   }
+   void display(){
+    System.out.println("Hello!");
+   }
+   public static void main(String args[]){
+    /* Creating object using default constructor. This 
+     * will invoke child class constructor, which will 
+     * invoke parent class constructor
+     */
+    Subclass obj= new Subclass();
+    //Calling sub class method 
+    obj.display();
+    /* Creating second object using arg constructor
+     * it will invoke arg constructor of child class which will
+     * invoke no-arg constructor of parent class automatically 
+     */
+    Subclass obj2= new Subclass(10);
+    obj2.display();
+   }
+}
+Output:
+
+Constructor of parent class
+Constructor of child class
+Hello!
+Constructor of parent class
+arg constructor of child class
+Hello!
+Parameterized super() call to invoke parameterized constructor of parent class
+We can call super() explicitly in the constructor of child class, but it would not make any sense because it would be redundant. It’s like explicitly doing something which would be implicitly done otherwise. However when we have a constructor in parent class that takes arguments then we can use parameterized super, like super(100); to invoke parameterized constructor of parent class from the constructor of child class. Let’s see an example to understand this:
+
+class Parentclass
+{
+   //no-arg constructor
+   Parentclass(){
+    System.out.println("no-arg constructor of parent class");
+   }
+   //arg or parameterized constructor
+   Parentclass(String str){
+    System.out.println("parameterized constructor of parent class");
+   }
+}
+class Subclass extends Parentclass
+{
+   Subclass(){
+       /* super() must be added to the first statement of constructor 
+    * otherwise you will get a compilation error. Another important 
+    * point to note is that when we explicitly use super in constructor
+    * the compiler doesn't invoke the parent constructor automatically.
+    */
+    super("Hahaha");
+    System.out.println("Constructor of child class");
+ 
+   }
+   void display(){
+    System.out.println("Hello");
+   }
+   public static void main(String args[]){        
+    Subclass obj= new Subclass();
+    obj.display();     
+   }
+}
+Output:
+
+parameterized constructor of parent class
+Constructor of child class
+Hello
+There are few important points to note in this example: 1) super()(or parameterized super must be the first statement in constructor otherwise you will get the compilation error: “Constructor call must be the first statement in a constructor” 2) When we explicitly placed super in the constructor, the java compiler didn’t call the default no-arg constructor of parent class.
+
+3) How to use super keyword in case of method overriding
+When a child class declares a same method which is already present in the parent class then this is called method overriding. We will learn method overriding in the next tutorials of this series. For now you just need to remember this: When a child class overrides a method of parent class, then the call to the method from child class object always call the child class version of the method. However by using super keyword like this: super.method_name you can call the method of parent class (the method which is overridden). In case of method overriding, these terminologies are used: Overridden method: The method of parent class Overriding method: The method of child class Lets take an example to understand this concept:
+
+class Parentclass
+{
+   //Overridden method
+   void display(){
+    System.out.println("Parent class method");
+   }
+}
+class Subclass extends Parentclass
+{
+   //Overriding method
+   void display(){
+    System.out.println("Child class method");
+   }
+   void printMsg(){
+    //This would call Overriding method
+    display();
+    //This would call Overridden method
+    super.display();
+   }
+   public static void main(String args[]){        
+    Subclass obj= new Subclass();
+    obj.printMsg(); 
+   }
+}
+Output:
+
+Child class method
+Parent class method
+What if the child class is not overriding any method: No need of super
+When child class doesn’t override the parent class method then we don’t need to use the super keyword to call the parent class method. This is because in this case we have only one version of each method and child class has access to the parent class methods so we can directly call the methods of parent class without using super.
+
+class Parentclass
+{
+   void display(){
+    System.out.println("Parent class method");
+   }
+}
+class Subclass extends Parentclass
+{
+   void printMsg(){
+    /* This would call method of parent class,
+     * no need to use super keyword because no other
+     * method with the same name is present in this class
+     */
+    display();
+   } 
+   public static void main(String args[]){
+        
+    Subclass obj= new Subclass();
+        obj.printMsg(); 
+   }
+}
+Encapsulation in Java OOPs
+What is Encapsulation
+Encapsulation is all about wrapping variables and methods in one single unit. Encapsulation is also known as data hiding. Why? Because, when you design your class you may (and you should) make your variables hidden from other classes and provide methods to manipulate the data instead. Your class is designed as a black-box. You have access to several methods from outside (classes) and a return type for each of those methods. All you need to know about this class is the name of the method and the return type. In other words – you give the class some data and get new data as response, without caring about the internal mechanisms the data is processed.
+
+Encapsulation is one of the four major concepts behind object-oriented programming (OOP). OOP questions are very common on job interviews, so you may expect questions about encapsulation on your next Java job interview.
+
+To achieve encapsulation in Java:
+
+Declare the variables of a class as private.
+Provide public setter and getter methods to modify and view the variables values.
+public class Car {
+    
+    private String name;
+    private double topSpeed;
+    
+    public Car() {}
+    
+    public String getName() {
+        return name;
+    }
+ 
+    public void setName(String name) {
+        this.name = name;
+    }
+ 
+    public void setTopSpeed(double speedMPH) {
+        topSpeed = speedMPH;
+    }
+    
+    public double getTopSpeedMPH() {
+        return topSpeed;
+    }
+    
+    public double getTopSpeedKMH() {
+        return topSpeed * 1.609344;
+    }
+ 
+}
+The main program creates a Car object with given name and use the setter method to store the top speed for this instance. Now we can easily get the speed in MPH or KMH without caring about how speed is converted in the Car class.
+
+Why Is Encapsulation?
+It’s because encapsulation has a number of advantages that increase the reusability, flexibility and maintainability of the code.
+
+Flexibility: It’s more flexible and easy to change the encapsulated code with new requirements. For example, if the requirement for setting the age of a person changes, we can easily update the logic in the setter method setAge().  
+Reusability: Encapsulated code can be reused throughout the application or across multiple applications. For example, the Person class can be reused whenever such type of object is required.  
+Maintainability: Application ode is encapsulated in separate units (classes, interfaces, methods, setters, getters, etc) so it’s easy to change or update a part of the application without affecting other parts, which reduces the time of maintenance.
+ 
+
+ How Is Encapsulation Done in Java?
+As you can see in the above examples, encapsulation is implemented in Java using interfaces, classes, access modifiers, setters and getters.
+
+A class or an interface encapsulates essential features of an object.
+
+Access modifiers (private, public, protected) restrict access to data at different levels.
+
+Setters and getters prevent data from misuse or unwanted changes from other objects.
+
+That’s all for encapsulation topic today. Right now, take a pencil and a paper to take note what you have learned.
+
+Encapsulation vs. Abstraction
+So far you got a proper understanding about abstraction and encapsulation in Object-Oriented Programming with Java. To summary:
+
+###li
+Encapsulation is the process of hiding information details and protecting data and behavior of an object from misuse by other objects. In Java, encapsulation is done using access modifiers (public, protected, private) with classes, interfaces, setters, getters.
+So, what are the commons and differences between abstraction and encapsulation?
+
+Many programmers have been wondering about this.
+
+If you are wondering about this too, here’s my answer:
+
+Hey, there are NO commons and differences between abstraction and encapsulation. Why? It’s because they are not comparable.
+
+They are about different things, so we cannot compare them.
+
+As I told you in the article What is Abstraction in Java - the WHY and the Truth, abstraction is the fundamental concept on which other things rely on such as encapsulation, inheritance and polymorphism. In other words, if there is no abstraction, encapsulation would not exist.
+
+Encapsulation is done based on abstraction. Imagine you are building a house. The house is made by bricks. Abstraction is the bricks and encapsulation is the house. Got it?
+
+That’s all about abstraction and encapsulation today. You know, it took me years to really understand and figure out this mater. Now you got it in just some minutes.
+
+
+
+Java - Access Modifiers
+Java provides a number of access modifiers to set access levels for classes, variables, methods, and constructors. The four access levels are −
+
+Visible to the package, the default. No modifiers are needed.
+Visible to the class only (private).
+Visible to the world (public).
+Visible to the package and all subclasses (protected).
+Default Access Modifier - No Keyword
+Default access modifier means we do not explicitly declare an access modifier for a class, field, method, etc.
+
+A variable or method declared without any access control modifier is available to any other class in the same package. The fields in an interface are implicitly public static final and the methods in an interface are by default public.
+
+Example
+Variables and methods can be declared without any modifiers, as in the following examples −
+
+String version = "1.5.1";
+ 
+boolean processOrder() {
+   return true;
+}
+Private Access Modifier - Private
+Methods, variables, and constructors that are declared private can only be accessed within the declared class itself.
+
+Private access modifier is the most restrictive access level. Class and interfaces cannot be private.
+
+Variables that are declared private can be accessed outside the class, if public getter methods are present in the class.
+
+Using the private modifier is the main way that an object encapsulates itself and hides data from the outside world.
+
+Example
+The following class uses private access control −
+
+public class Logger {
+   private String format;
+ 
+   public String getFormat() {
+      return this.format;
+   }
+ 
+   public void setFormat(String format) {
+      this.format = format;
+   }
+}
+Here, the format variable of the Logger class is private, so there's no way for other classes to retrieve or set its value directly.
+
+So, to make this variable available to the outside world, we defined two public methods: getFormat(), which returns the value of format, and setFormat(String), which sets its value.
+
+Public Access Modifier - Public
+A class, method, constructor, interface, etc. declared public can be accessed from any other class. Therefore, fields, methods, blocks declared inside a public class can be accessed from any class belonging to the Java Universe.
+
+However, if the public class we are trying to access is in a different package, then the public class still needs to be imported. Because of class inheritance, all public methods and variables of a class are inherited by its subclasses.
+
+Example
+The following function uses public access control −
+
+public static void main(String[] arguments) {
+   // ...
+}
+The main() method of an application has to be public. Otherwise, it could not be called by a Java interpreter (such as java) to run the class.
+
+Protected Access Modifier - Protected
+Variables, methods, and constructors, which are declared protected in a superclass can be accessed only by the subclasses in other package or any class within the package of the protected members' class.
+
+The protected access modifier cannot be applied to class and interfaces. Methods, fields can be declared protected, however methods and fields in a interface cannot be declared protected.
+
+Protected access gives the subclass a chance to use the helper method or variable, while preventing a nonrelated class from trying to use it.
+
+Example
+The following parent class uses protected access control, to allow its child class override openSpeaker() method −
+
+class AudioPlayer {
+   protected boolean openSpeaker(Speaker sp) {
+      // implementation details
+   }
+}
+ 
+class StreamingAudioPlayer {
+   boolean openSpeaker(Speaker sp) {
+      // implementation details
+   }
+}
+Here, if we define openSpeaker() method as private, then it would not be accessible from any other class other than AudioPlayer. If we define it as public, then it would become accessible to all the outside world. But our intention is to expose this method to its subclass only, that’s why we have used protected modifier.
+
+Access Control and Inheritance
+The following rules for inherited methods are enforced −
+
+Methods declared public in a superclass also must be public in all subclasses.
+
+Methods declared protected in a superclass must either be protected or public in subclasses; they cannot be private.
+
+Methods declared private are not inherited at all, so there is no rule for them.
+
+
+
+Multithreading in Java
+Multithreading is a Java feature that allows concurrent execution of two or more parts of a program for maximum utilization of CPU. Each part of such program is called a thread. So, threads are light-weight processes within a process.
+
+
+Any application can have multiple processes (instances). Each of this process can be assigned either as a single thread or multiple threads.
+
+We will see in this tutorial how to perform multiple tasks at the same time and also learn more about threads and synchronization between threads.
+
+
+
+What is Single Thread?
+A single thread is basically a lightweight and the smallest unit of processing. Java uses threads by using a "Thread Class".
+
+There are two types of thread – user thread and daemon thread (daemon threads are used when we want to clean the application and are used in the background).
+
+When an application first begins, user thread is created. Post that, we can create many user threads and daemon threads.
+
+Single Thread Example:
+
+package demotest;
+ 
+public class Thread1 implements Runnable
+{
+ 
+ 
+    public static void main(String[] args) {
+        Thread Thread1 = new Thread("lk");
+        Thread Thread2 = new Thread("lk");
+        Thread1.start();
+        Thread2.start();
+        System.out.println("Thread names are following:");
+        System.out.println(Thread1.getName());
+        System.out.println(Thread2.getName());
+    }
+    @Override
+    public void run() {
+    }
+ 
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Advantages of single thread:
+
+Reduces overhead in the application as single thread execute in the system
+Also, it reduces the maintenance cost of the application.
+hread creation by extending the Thread class
+ 
+We create a class that extends the java.lang.Thread class. This class overrides the run() method available in the Thread class. A thread begins its life inside run() method. We create an object of our new class and call start() method to start the execution of a thread. Start() invokes the run() method on the Thread object.
+ 
+ 
+ 
+// Java code for thread creation by extending
+// the Thread class
+class MultithreadingDemo extends Thread
+{
+    public void run()
+    {
+        try
+        {
+            // Displaying the thread that is running
+            System.out.println ("Thread " +
+                  Thread.currentThread().getId() +
+                  " is running");
+ 
+        }
+        catch (Exception e)
+        {
+            // Throwing an exception
+            System.out.println ("Exception is caught");
+        }
+    }
+}
+ 
+// Main Class
+public class Multithread
+{
+    public static void main(String[] args)
+    {
+        int n = 8; // Number of threads
+        for (int i=0; i<8; i++)
+        {
+            MultithreadingDemo object = new MultithreadingDemo();
+            object.start();
+        }
+    }
+}
+ 
+ 
+ 
+What is Multithreading?
+ 
+Multithreading in java is a process of executing two or more threads simultaneously to maximum utilization of CPU.
+ 
+Multithreaded applications are where two or more threads run concurrently; hence it is also known as Concurrency in Java. This multitasking is done, when multiple processes share common resources like CPU, memory, etc.
+ 
+Each thread runs parallel to each other. Threads don't allocate separate memory area; hence it saves memory. Also, context switching between threads takes less time.
+Thread Class vs Runnable Interface
+
+1. If we extend the Thread class, our class cannot extend any other class because Java doesn’t support multiple inheritance. But, if we implement the Runnable interface, our class can still extend other base classes.
+
+2. We can achieve basic functionality of a thread by extending Thread class because it provides some inbuilt methods like yield(), interrupt() etc. that are not available in Runnable interface.
+
+ 
+
+Thread Life Cycle in Java
+The Lifecycle of a thread:
+
+
+
+There are various stages of life cycle of thread as shown in above diagram:
+
+New
+Runnable
+Running
+Waiting
+Dead
+New: In this phase, the thread is created using class "Thread class".It remains in this state till the program starts the thread. It is also known as born thread.
+Runnable: In this page, the instance of the thread is invoked with a start method. The thread control is given to scheduler to finish the execution. It depends on the scheduler, whether to run the thread.
+Running: When the thread starts executing, then the state is changed to "running" state. The scheduler selects one thread from the thread pool, and it starts executing in the application.
+Waiting: This is the state when a thread has to wait. As there multiple threads are running in the application, there is a need for synchronization between threads. Hence, one thread has to wait, till the other thread gets executed. Therefore, this state is referred as waiting state.
+Dead: This is the state when the thread is terminated. The thread is in running state and as soon as it completed processing it is in "dead state".
+Some of the commonly used methods for threads are:
+
+Method	Description
+start()	
+It returns the name of the thread.
+setPriority(int newpriority)	It changes the priority of the thread.
+yield ()	It causes current thread on halt and other threads to execute.
+
+
+
+
+Java Thread Synchronization
+In multithreading, there is the asynchronous behavior of the programs. If one thread is writing some data and another thread which is reading data at the same time, might create inconsistency in the application.
+
+When there is a need to access the shared resources by two or more threads, then synchronization approach is utilized.
+
+Java has provided synchronized methods to implement synchronized behavior.
+
+In this approach, once the thread reaches inside the synchronized block, then no other thread can call that method on the same object. All threads have to wait till that thread finishes the synchronized block and comes out of that.
+
+In this way, the synchronization helps in a multithreaded application. One thread has to wait till other thread finishes its execution only then the other threads are allowed for execution.
+
+It can be written in the following form:
+
+Synchronized(object)
+{  
+        //Block of statements to be synchronized
+}
